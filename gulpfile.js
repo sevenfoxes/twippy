@@ -43,11 +43,11 @@ gulp.task('style', () => {
 
 gulp.task('browserify', () => {
   let args = merge(browserify.args, { debug: true });
-  let bundler = watchify(browserify(path.app, args)).transform(babelify, { /* opts */ });
+  let bundler = watchify(browserify('./src/app.js', args)).transform(babelify, { /* opts */ });
 
   bundler.bundle()
     .on('error', map_error)
-    .pipe(source(path.app))
+    .pipe(source('./src/app.js'))
     .pipe(buffer())
     .pipe(gulp.dest(path.dist))
     .pipe(sourcemaps.init({ loadMaps: true }))
